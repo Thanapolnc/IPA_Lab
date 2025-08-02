@@ -2,10 +2,7 @@ import time
 import paramiko
 from pathlib import Path
 
-
 USERNAME = 'admin'
-# PASSWORD = 'cisco'
-
 
 devices_ip = ["172.31.114.1", "172.31.114.2", "172.31.114.3", "172.31.114.4", "172.31.114.5"]
 
