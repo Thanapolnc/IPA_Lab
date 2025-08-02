@@ -1,0 +1,31 @@
+r2:
+  interfaces:
+    - name: gi0/1
+      ip: 172.31.114.7
+      mask: 255.255.255.240
+    - name: gi0/2
+      ip: 192.168.114.129
+      mask: 255.255.255.128
+    - name: lo0
+      ip: 2.2.2.2
+      mask: 255.255.255.255
+    - name: gi0/3
+      ip: dhcp
+
+  vrf: Control-Data
+
+  nexthop: 192.168.122.1
+
+  ospf:
+    id: 1
+
+  networks:
+    - ip: 172.31.114.0
+      wildcard: 0.0.0.255
+      area: 0
+    - ip: 192.168.114.128 
+      wildcard: 0.0.0.127
+      area: 0
+    - ip: 2.2.2.2
+      wildcard: 0.0.0.0
+      area: 0

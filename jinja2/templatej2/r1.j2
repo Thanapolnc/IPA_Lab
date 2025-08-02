@@ -1,0 +1,13 @@
+{% for intf in interfaces %}
+int {{ intf.name }}
+no sh
+ip vrf forwarding {{ vrf }}
+ip add {{ intf.ip }} {{ intf.mask }}
+{% endfor %}
+router ospf {{ ospf.id }} vrf {{ vrf }}
+{% for nw in networks %}
+network {{nw.ip}} {{ nw.wildcard }} area {{ nw.area }}
+{% endfor %}
+exit
+ip domain-lookup
+ip name-server vrf {{ vrf }} {{ nexthop }}

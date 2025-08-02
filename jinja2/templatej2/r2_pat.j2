@@ -1,0 +1,12 @@
+{% for intf in interfaces %}
+int {{ intf.name }}
+ ip nat {{ intf.io }}
+{% endfor %}
+
+ip nat inside source list 1 interfaces {{ nat.int }} vrf {{ vrf }} overload
+
+{% for nw in acl %}
+access-list 1 permit {{ nw.ip }} {{ nw.wildcard }}
+{% endfor %}
+
+ip name-server 8.8.8.8

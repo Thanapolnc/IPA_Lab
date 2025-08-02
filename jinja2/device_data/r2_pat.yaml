@@ -1,0 +1,17 @@
+r2_pat:
+  interfaces:
+    - name: gi0/3
+      io: outside
+    - name: gi0/1
+      io: inside
+    - name: gi0/2
+      io: inside
+
+  nat:
+    int: gigabitEthernet 0/3
+
+  acl:
+    - ip: 172.31.114.0 
+      wildcard: 0.0.0.255
+    - ip: 192.168.114.0
+      wildcard: 0.0.0.255

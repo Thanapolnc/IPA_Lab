@@ -1,0 +1,9 @@
+s1:
+  vlan:
+    id: 101
+    name: control-data
+  interfaces:
+    - name: gi0/1
+      mode: access
+    - name: gi1/1
+      mode: access

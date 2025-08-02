@@ -1,0 +1,17 @@
+{% for intf in interfaces %}
+int {{ intf.name }}
+no sh
+ip vrf forwarding {{ vrf }}
+{% if intf.name == "gi0/3" %}
+ip add {{ intf.ip }}
+{% else %}
+ip add {{ intf.ip }} {{ intf.mask }}
+{% endif %}
+{% endfor %}
+router ospf {{ ospf.id }} vrf {{ vrf }}
+{% for nw in networks %}
+network {{nw.ip}} {{ nw.wildcard }} area {{ nw.area }}
+{% endfor %}
+default-information originate always
+exit
+ip route vrf {{ vrf }} 0.0.0.0 0.0.0.0 {{ nexthop }}
