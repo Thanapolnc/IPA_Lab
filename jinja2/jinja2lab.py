@@ -5,7 +5,6 @@ import yaml
 from jinja2 import Environment, FileSystemLoader
 
 username = 'admin'
-# password = 'cisco'
 
 devices = {
     "s1": "172.31.114.3",
