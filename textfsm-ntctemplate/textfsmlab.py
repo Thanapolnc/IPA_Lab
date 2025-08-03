@@ -68,45 +68,43 @@ def get_description(conn, intf):
 def get_cdp(conn):
   "get neighbors of device"
 
-  return conn.send_command("show cdp neighbors", use_textfsm=True)
+  return conn.send_command("show cdp neighbors detail", use_textfsm=True)
 
 
 def autoset_description(conn):
   "automatically generate description"
 
-  print("Getting CDP neighbors...")
   neighbors = get_cdp(conn)
   
-  # if not neighbors:
-  #   print("No CDP neighbors found!")
-  #   return
-  
-  # print(f"Found {len(neighbors)} neighbors:")
-  # for i, entry in enumerate(neighbors):
-  #   print(f"Entry {i}: {entry}")
   
   for entry in neighbors:
     # Use correct field names from ntc-templates
     local = entry.get("local_interface")
     nbr = entry.get("neighbor_name") 
     nbr_intf = entry.get("neighbor_interface")
+    caps = entry.get("capabilities", "")
+
+    print(caps[0])
 
     if not all([local, nbr, nbr_intf]):
        continue
+    
+    if caps[0] == "R":
+       iosname = "Router"
+    elif caps[0] == "S":
+       iosname = "Switch"
+    else:
+       iosname = "dont know"
 
-    desc = f"Connect to {nbr_intf} of {nbr}"
+    desc = f"Connect to {local[0:2]}{nbr_intf[-3:]} of {iosname}{nbr[1]}"
     print(f"Setting on {local}: {desc}")
     set_description(conn, local, desc)
 
 if __name__ == "__main__":
-    conn = connect_device("S1")
+    conn = connect_device("R2")
     autoset_description(conn)
 
-    for intf in ["Gi0/0", "Gi0/1", "Gi1/1"]:
+    for intf in ["Gi0/1", "Gi0/2", "Gi0/3"]:
         print(f"{intf} → {get_description(conn, intf)}")
 
     conn.disconnect()
-
-
-
-
