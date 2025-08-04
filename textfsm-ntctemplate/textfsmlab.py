@@ -75,15 +75,14 @@ def autoset_description(conn):
   "automatically generate description"
 
   neighbors = get_cdp(conn)
+
+  "static set description"
   if conn.host == "172.31.114.3":
      set_description(conn, "Gi1/1", "Connect to PC")
   elif conn.host == "172.31.114.4":
      set_description(conn, "Gi0/1", "Connect to PC")
   elif conn.host == "172.31.114.5":
      set_description(conn, "Gi0/3", "Connect to WAN") 
-  
-  # set_description(conn, , "Connect to PC")
-
   
   for entry in neighbors:
     # Use correct field names from ntc-templates
@@ -108,11 +107,3 @@ def autoset_description(conn):
     print(f"Setting on {local}: {desc}")
     set_description(conn, local, desc)
 
-if __name__ == "__main__":
-    conn = connect_device("S1")
-    autoset_description(conn)
-
-    for intf in ["Gi0/0", "Gi0/1", "Gi1/1"]:
-        print(f"{intf} → {get_description(conn, intf)}")
-
-    conn.disconnect()
