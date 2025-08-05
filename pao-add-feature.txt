@@ -1,0 +1,11 @@
+New Feature has added into this git
+
+## Features Added:
+1. Enhanced network automation capabilities
+2. Improved Jinja2 templating
+3. Better error handling in Netmiko scripts
+4. Extended Paramiko functionality
+
+## Version: 1.1.0
+## Date: August 4, 2025
+## Author: Pao
